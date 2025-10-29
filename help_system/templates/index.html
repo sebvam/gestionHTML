@@ -1,0 +1,40 @@
+<h2>Sistema de Ayuda con archivos HTML</h2>
+
+<form id="uploadForm" enctype="multipart/form-data">
+  <input type="file" name="file" accept=".html">
+  <button type="submit">Subir HTML</button>
+</form>
+
+<ul id="fileList"></ul>
+
+<script>
+async function loadFiles() {
+  const res = await fetch("/list");
+  const files = await res.json();
+  const list = document.getElementById("fileList");
+  list.innerHTML = "";
+  files.forEach(f => {
+    const li = document.createElement("li");
+    li.textContent = f;
+    const btn = document.createElement("button");
+    btn.textContent = "Eliminar";
+    btn.onclick = () => deleteFile(f);
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+}
+
+document.getElementById("uploadForm").onsubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  await fetch("/upload", { method: "POST", body: formData });
+  loadFiles();
+};
+
+async function deleteFile(name) {
+  await fetch("/delete/" + name, { method: "DELETE" });
+  loadFiles();
+}
+
+loadFiles();
+</script>

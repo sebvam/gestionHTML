@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+  <school>Instituto Ejemplo</school>
+  <version>1.0</version>
+  <contact>
+    <email>soporte@example.com</email>
+  </contact>
+</config>
