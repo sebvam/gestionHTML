@@ -1,2 +1,0 @@
-pywebview==3.9
-Flask==2.3.2
